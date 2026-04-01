@@ -1,7 +1,16 @@
 
 #include <iostream>
+#include <string>
 
 int main(){
-    std::cout << "This finally worked!!!!!!" << std::endl;
+
+    int counter = 0;
+
+    for (int i = 0; i < 5; i++){
+        counter += i;
+
+        std::cout << "Counter is now: " << counter << std::endl;
+    }
+
     return 0;
 }
