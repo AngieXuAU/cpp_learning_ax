@@ -1,2 +1,7 @@
 .vscode/*
 .agents/*
+
+.clang-format
+compile_flags.txt
+
+*.exe
