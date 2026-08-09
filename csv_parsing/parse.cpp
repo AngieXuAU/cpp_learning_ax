@@ -39,29 +39,36 @@ int main() {
 
         auto split_view = line | std::views::split(',');
         auto it = split_view.begin();
-        // auto end = split_view.end();
+        auto end = split_view.end();
+
+        // safely access the next column
+        auto get_next_col = [&it, end]() -> std::string_view {
+            if (it == end) return {};  // return empty if we get to the end
+
+            std::string_view val(*it);
+            ++it;
+            return val;
+        };
 
         // title
-        std::string_view title_sv(*it);
+        std::string_view title_sv = get_next_col();
 
         // author
-        ++it;
-        std::string_view author_sv(*it);
+        std::string_view author_sv = get_next_col();
 
         // year
-        ++it;
-        std::string_view year_sv(*it);
+        std::string_view year_sv = get_next_col();
         int year = 0;
         std::from_chars(year_sv.data(), year_sv.data() + year_sv.size(), year);
 
         // pages
-        ++it;
-        std::string_view pages_sv(*it);
+        std::string_view pages_sv = get_next_col();
         int pages = 0;
         std::from_chars(pages_sv.data(), pages_sv.data() + pages_sv.size(), pages);
 
         books.push_back(Book{std::string(title_sv), std::string(author_sv), year, pages});
     }
+
     for (const auto& book : books) {
         std::cout << book.name << " has " << book.pages << " pages.\n";
         // if (book.pages > 300) {
